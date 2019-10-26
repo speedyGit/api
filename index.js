@@ -1,14 +1,16 @@
 //Server Dependencies
 const express = require('express')
 const helmet = require('helmet')
-require('dotenv')
+require('dotenv').config()
 
-//GET ROUTES
-const primaryRouter = require('./api/server')
 //Set Globals
 const PORT = process.env.PORT || 5000
+const ENV = process.env.DB_ENV || 'development'
 const path = require('path')
 global.dbConfig = path.resolve(__dirname + '/data/dbConfig')
+
+//Require Routes after Globs Declaration to insure they inherate the Globs
+const primaryRouter = require('./api/server')
 
 //Init Server
 const server = express()
@@ -18,7 +20,8 @@ server.use(express.json())
 //Bring In the routes
 server.use('/api',primaryRouter)
 
+//Fire the ol'gal up
 server.listen(PORT,()=>{
-    console.log(`\n** Server Listening on port: ${PORT} **\n`)
+    console.log(`\n** Server Listening on port: ${PORT} **\n** Using: ${ENV} Environment **`)
 })
 

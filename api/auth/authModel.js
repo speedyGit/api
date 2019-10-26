@@ -1,41 +1,32 @@
-const router = require('express').Router()
-const dbModel = require(Model)
-router
-  .get('/',(req,res)=>{
-    return dbModel.findAll()
-    .then(p=>{res.status(200).json({message:`SUCCESS`,...p})})
-    .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
-})
-router
-  .get('/:id',(req,res)=>{
-    const {id}=req.params
-    return dbModel.findAllById(id)
-    .then(p=>{res.status(200).json({message:`SUCCESS`,...p})})
-    .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
-})
-  
-router
-  .post('/',(req,res)=>{
-    const {body}=req
-    return dbModel.add(body)
-    .then(p=>{res.status(201).json({message:`SUCCESS`,...p})})
-    .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
-})
-router
-  .put('/:id',(req,res)=>{
-    const {id}=req.params
-    const {body}=req
-  
-    return dbModel.editById(id)
-    .then(p=>{res.status(200).json({message:`SUCCESS`,...p})})
-    .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
-})
-router
-  .delete('/:id',(req,res)=>{
-    const {id}=req.params
-    
-    return dbModel.remove(id)
-    .then(p=>{res.status(201).json({message:`SUCCESS`,...p})})
-    .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
-})
-module.exports=router
+const db = require(dbConfig)
+module.exports={
+    findAll,
+    findById,
+    remove,
+    add,
+    editById
+}
+const table='users'
+function findAll(){
+    return db(table)
+}
+function findById(id){
+    return db(table)
+    .where({id})
+    .first()
+}
+function remove(id) {
+    return db(table)
+    .where({id})
+    .del()
+}
+function editById(id,update){
+    return db(table)
+    .where({ id })
+    .update(update, '*');
+}
+function add(obj){
+    return db(table)
+    .insert(obj,'id')
+    .then(([id])=>findById(id))
+}

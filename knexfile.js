@@ -1,11 +1,12 @@
 // Update with your config settings.
 const ENV = process.env.DB_ENV || "development";
-const migrate = `./data/migrations/'${ENV}`;
-const seed = `./data/seeds/'${ENV}`;
+const migrate = `./data/migrations/${ENV}`;
+const seed = `./data/seeds/${ENV}`;
 
 module.exports = {
   development: {
     client: "sqlite3",
+    useNullAsDefault:true,
     connection: {
       filename: "./data/dev.sqlite3"
     },
