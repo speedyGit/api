@@ -2,7 +2,7 @@ const router = require("express").Router();
 const dbModel = require("./authModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("./preAuth/jwtAccess");
-const HashFactor = process.env.HASH || 8
+const HashFactor = parseInt(process.env.HASH) || 8
 
 //validation
 const validateNewUser = require("./preAuth/validNewUser");
@@ -21,11 +21,9 @@ router.post("/register", validateNewUser, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, HashFactor);
   user.password = hash;
-  console.log('usersfsre',user)
   dbModel
     .add(user)
     .then(newUser => {
-      console.log('user', newUser)
       //Just to Besure
       delete newUser.password;
       payload = {
@@ -40,7 +38,6 @@ router.post("/register", validateNewUser, (req, res) => {
 
 router.post("/login", validateLogin, (req, res) => {
   const {password} = req.body
-  console.log(req.user)
   const user = req.user
     if(user && bcrypt.compareSync(password,user.password)){
       delete user.password

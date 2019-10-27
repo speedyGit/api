@@ -25,5 +25,5 @@ server.use("/api", primaryRouter);
 server.listen(PORT, () => {
   console.log(`\n** Server Listening on port: ${PORT} **\n`);
   console.log(`** Using: ${ENV} Environment **\n`);
-  console.log(`** FactoringHash: ${HASH} with  Bcrypt **\n`);
+  console.log(`** SaltVersion: ${HASH} with  Bcrypt **\n`);
 });

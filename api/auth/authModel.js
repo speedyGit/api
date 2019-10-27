@@ -3,7 +3,8 @@ module.exports={
     add,
     findByName,
     findAll,
-    findById
+    findById,
+    findByEmail
 }
 
 //Nice to declare Tables up top Yo, including sub tables
@@ -27,6 +28,13 @@ function findByName(username){
     .select('u.id','u.username','u.password','r.role')
     .join('roles as r','r.id','u.role_id')
     .where({username})
+    .first()
+}
+
+function findByEmail(email){
+    return db(table)
+    .select('email')
+    .where({email})
     .first()
 }
 

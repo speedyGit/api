@@ -11,7 +11,11 @@ exports.up = function(knex) {
         .notNullable()
         .unique()
       col
-        .string('password',200)
+        .string('email',50)
+        .notNullable()
+        .unique()
+      col
+        .string('password',128)
         .notNullable()
       col
         .integer('role_id')
