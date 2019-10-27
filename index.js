@@ -20,6 +20,7 @@ server.use(express.json())
 //Bring In the routes
 server.use('/api',primaryRouter)
 
+
 //Fire the ol'gal up
 server.listen(PORT,()=>{
     console.log(`\n** Server Listening on port: ${PORT} **\n** Using: ${ENV} Environment **`)

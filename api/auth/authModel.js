@@ -1,32 +1,30 @@
 const db = require(dbConfig)
 module.exports={
-    findAll,
-    findById,
-    remove,
     add,
-    editById
+    findByName
 }
+
+//Nice to declare Tables up top Yo, including sub tables
 const table='users'
-function findAll(){
-    return db(table)
-}
+
 function findById(id){
-    return db(table)
-    .where({id})
+    return db(table + ' as u')
+    .select('u.id','u.username','r.role')
+    .join('roles as r','r.id','u.role_id')
     .first()
 }
-function remove(id) {
+
+function findByName(username){
     return db(table)
-    .where({id})
-    .del()
+    .select('username')
+    .where({username})
+    .first()
 }
-function editById(id,update){
-    return db(table)
-    .where({ id })
-    .update(update, '*');
-}
+
 function add(obj){
+    console.log(obj)
     return db(table)
-    .insert(obj,'id')
+    .insert(obj)
     .then(([id])=>findById(id))
+    .catch(err=> console.log('add',err))
 }
