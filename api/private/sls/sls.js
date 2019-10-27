@@ -2,6 +2,7 @@ const router = require('express').Router()
 const dbModel = require('./slsModel')
 router
   .get('/',(req,res)=>{
+    console.log(req.user)
     return dbModel.findAll()
     .then(p=>{res.status(200).json({message:`SUCCESS`,...p})})
     .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})

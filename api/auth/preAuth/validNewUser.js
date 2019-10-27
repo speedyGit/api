@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
       if (
         x === "password" ||
         x === "username" ||
-        x === "accessKey" ||
+        x === "accessKey"||
         x === "email"
       ) {
         const key = u[x].length;
@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
 
         //Validate Email Pattern
         if (x === "email") {
-          //Cats got your keyboard... When in dbout, RegEx it out
+          //Cats got your keyboard... When in dbout, Reg it out
           !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(u[x]) &&
             errors.push({ error: "Unexpected Eamil Address" });
         }
@@ -64,10 +64,9 @@ module.exports = async (req, res, next) => {
     await dbMode
       .findByEmail(req.body.email)
       .then(
-        email => email && errors.push({ email: "Email Already Exists" })
+        email => email && errors.push({ email:"Email Already Exists" })
       );
   }
-
   //OK We are probably safe to move on
   errors.length < 1 ? next() : res.status(401).json({ errors: errors });
 };

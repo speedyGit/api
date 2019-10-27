@@ -1,4 +1,4 @@
-const db = require(dbConfig)
+const db = require(_dbConfig)
 module.exports={
     findAll,
     findById,
@@ -6,7 +6,7 @@ module.exports={
     add,
     editById
 }
-const table='users'
+const table='students'
 function findAll(){
     return db(table)
 }

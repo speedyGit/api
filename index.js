@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 5000;
 const ENV = process.env.DB_ENV || "DEFAULT development";
 const HASH = process.env.HASH || "DEFAULT(8)";
 const path = require("path");
-global.dbConfig = path.resolve(__dirname + "/data/dbConfig");
+global._dbConfig = path.resolve(__dirname + "/data/dbConfig");//MAIN DB CONF
+global._jwt = path.resolve(__dirname + "/api/auth/preAuth/jwtAccess");//JWT AUTH
 
 //Require Routes after Globs Declaration to insure they inherate the Globs
 const primaryRouter = require("./api/server");
