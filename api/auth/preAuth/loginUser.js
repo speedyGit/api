@@ -1,9 +1,10 @@
-module.exports = (req, res, next) => {
+const dbModel = require('../authModel')
+module.exports = async (req, res, next) => {
 
 
   const errors = [];
+  const user = req.body
 
-  
   function validateLogin(user) {
     const u = req.body;
 
@@ -30,6 +31,10 @@ module.exports = (req, res, next) => {
     });
   }
 
-  validateLogin(req.body);
+  if(!errors.length){
+    req.user = await dbModel.findByName(user.username)
+  }
+
+  validateLogin(user);
   errors.length < 1 ? next() : res.status(401).json({ errors: errors });
 };

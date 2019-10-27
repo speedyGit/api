@@ -20,10 +20,11 @@ router.post("/register", validateNewUser, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 14);
   user.password = hash;
-
+  console.log('usersfsre',user)
   dbModel
     .add(user)
     .then(newUser => {
+      console.log('user', newUser)
       //Just to Besure
       delete newUser.password;
       payload = {
@@ -37,8 +38,20 @@ router.post("/register", validateNewUser, (req, res) => {
 });
 
 router.post("/login", validateLogin, (req, res) => {
-  const user = req.body
-  res.status(200).json({message:"Successfully logged in"});
+  const {password} = req.body
+  console.log(req.user)
+  const user = req.user
+    if(user && bcrypt.compareSync(password,user.password)){
+      delete user.password
+      payload = {
+        ...newUser,
+        token_type: "Basic ",
+        token: jwt.genToken(newUser)
+      }
+      res.status(200).json({message:'Login Success'})
+    } else {
+      res.status(401).json({errors:[{password:'Invalid Username Or Password'}]});
+    }
 });
 
 module.exports = router;

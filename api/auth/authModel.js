@@ -2,7 +2,8 @@ const db = require(dbConfig)
 module.exports={
     add,
     findByName,
-    findAll
+    findAll,
+    findById
 }
 
 //Nice to declare Tables up top Yo, including sub tables
@@ -12,28 +13,24 @@ function findAll(){
     return db(table)
 }
 
-function findByUserName(username){
-    return db(table)
-    .where({username})
-    .first()
-}
 
 function findById(id){
     return db(table + ' as u')
-    .select('u.id','u.username','u.password','r.role')
+    .select('u.id','u.username','r.role')
     .join('roles as r','r.id','u.role_id')
+    .where('u.id','=',id)
     .first()
 }
 
 function findByName(username){
-    return db(table)
-    .select('username')
+    return db(table + ' as u')
+    .select('u.id','u.username','u.password','r.role')
+    .join('roles as r','r.id','u.role_id')
     .where({username})
     .first()
 }
 
 function add(obj){
-    console.log(obj)
     return db(table)
     .insert(obj)
     .then(([id])=>findById(id))
