@@ -12,8 +12,18 @@ function genToken(user){
 
 //Verifies Existing JWT token
 const chkToken = (req,res,next) =>{
-    console.log('hello')
-    next()
+    const token = req.headers.authorization
+    token && jwt.verify(token,secret,(err,decoded)=>{
+        if(err){
+            res.status(401).json({error:"Invalid Token"})
+        }else{
+            req.user = decoded;
+            next()
+        }
+    })
+
+    !token && res.status(401).json({error:'No Token Provided'}) 
+   
 }
 
 module.exports={
