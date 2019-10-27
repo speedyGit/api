@@ -5,8 +5,9 @@ const jwt = require("./preAuth/jwtAccess");
 
 //validation
 const validateNewUser = require("./preAuth/validNewUser");
+const validateLogin = require('./preAuth/loginUser')
 
-router.get("/", jwt.chkToken(), (req, res) => {
+router.get("/", (req, res) => {
   dbModel
     .findAll()
     .then(users => res.status(200).json({ message: "success", ...users }))
@@ -35,6 +36,9 @@ router.post("/register", validateNewUser, (req, res) => {
     .catch(err => res.status(400).json({ errors: [err] }));
 });
 
-router.post("/login", (req, res) => {});
+router.post("/login", validateLogin, (req, res) => {
+  const user = req.body
+  res.status(200).json({message:"Successfully logged in"});
+});
 
 module.exports = router;

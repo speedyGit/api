@@ -1,7 +1,11 @@
 module.exports = (req, res, next) => {
+
+
+  const errors = [];
+
+  
   function validateLogin(user) {
-    const user = req.body;
-    const errors = [];
+    const u = req.body;
 
     !u.username && errors.push({ username: "required" });
     !u.password && errors.push({ password: "required" });
@@ -23,9 +27,9 @@ module.exports = (req, res, next) => {
         //Why except dirty keys
         errors.push({ error: `Unexpected key: [${x}] provide` });
       }
-    })
+    });
   }
 
-  validateLogin(req.body)
+  validateLogin(req.body);
   errors.length < 1 ? next() : res.status(401).json({ errors: errors });
 };
