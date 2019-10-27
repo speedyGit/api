@@ -15,7 +15,8 @@ module.exports = {
     },
     seeds: {
       directory: seed
-    }
+    },
+    debug:true
   },
 
   staging: {
