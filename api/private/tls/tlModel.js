@@ -12,7 +12,6 @@ function findAll(id) {
     .join("tl_to_students as ts", "ts.tl_id", "u.id")
     .join("students as s", "ts.student_id", "s.id")
     .select(
-      
       "s.id as student_id",
       "s.fname as first_name",
       "s.lname as last_name",
@@ -20,7 +19,6 @@ function findAll(id) {
       "s.slack_handle"
     )
     .where("u.id", id)
-    .catch(err => console.log("err", err));
 }
 function findById(id) {
   return db(table)
