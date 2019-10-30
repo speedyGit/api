@@ -21,7 +21,7 @@ router.get("/cp", (req, res) => {
   
   child2.stdout.on('data', data =>{
     console.log(`Number of files ${data}`)
-    res.write('data: ' + data + "\n\n")
+    res.write('data: ' + data + "YO\n\n")
   })
 
   child2.stdout.on("error", data => {
