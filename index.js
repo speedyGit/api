@@ -26,7 +26,7 @@ server.use("/", primaryRouter);
 
 //Errors
 server.use('/',(req,res)=>{
-  res.status(404).json({message:"Nothing lives here"});
+  res.status(404).json({message:"Nothing Here Yo"});
 })
 //Fire the ol'gal up
 server.listen(PORT, () => {
