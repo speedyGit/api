@@ -10,4 +10,5 @@ const privateRouter = require('./private/server')
 router.use('/',authRouter)
 router.use('/private',privateRouter)
 
+
 module.exports = router

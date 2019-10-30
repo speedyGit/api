@@ -24,6 +24,10 @@ server.use(express.json());
 //Bring In the routes
 server.use("/", primaryRouter);
 
+//Errors
+server.use('/',(req,res)=>{
+  res.status(404).json({message:"Nothing lives here"});
+})
 //Fire the ol'gal up
 server.listen(PORT, () => {
   console.log(`\n** Server Listening on port: ${PORT} **\n`);
