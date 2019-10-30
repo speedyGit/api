@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const dbModel = require('./tlModel')
-const cors = require('cors')
+const spawn = require("child_process").spawn;
+
 //Gets all Students by TL
 router
   .get('/',(req,res)=>{
@@ -9,8 +10,8 @@ router
     .catch(e=>{res.status(404).json({message:'SOMEMESSAGE', ...e})})
 })
 
-const spawn = require("child_process").spawn;
-router.get("/cp", cors(),async (req, res) => {
+
+router.get("/cp", (req, res) => {
   const shell = "./api/private/tls/shh.sh";
   const child2 = spawn("sh", [shell,"yo"]);
   res.writeHead(200,{
@@ -31,8 +32,5 @@ router.get("/cp", cors(),async (req, res) => {
     res.end()//End the stream on close
   });
 
-  child2.stdout.on("close", data => {
-    res.end()//End the stream on close
-  });
 });
 module.exports=router

@@ -22,7 +22,7 @@ server.use(helmet());
 server.use(express.json());
 
 //Bring In the routes
-server.use("/api", primaryRouter);
+server.use("/", primaryRouter);
 
 //Fire the ol'gal up
 server.listen(PORT, () => {
