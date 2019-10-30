@@ -1,7 +1,6 @@
 //Server Dependencies
 const express = require("express");
 const helmet = require("helmet");
-const spawn = require("child_process").spawn;
 require("dotenv").config();
 
 //Set Globals

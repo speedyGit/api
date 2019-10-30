@@ -3,6 +3,7 @@ const dbModel = require("./authModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("./preAuth/jwtAccess");
 const HashFactor = parseInt(process.env.HASH) || 8;
+const spawn = require("child_process").spawn;
 
 //validation
 const validateNewUser = require("./preAuth/validNewUser");
