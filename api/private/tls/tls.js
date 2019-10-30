@@ -13,7 +13,7 @@ router
 
 router.get("/cp", (req, res) => {
   const shell = "./api/private/tls/shh.sh";
-  const child2 = spawn("sh", [shell,"yo"]);
+  const child2 = spawn("git", ["pull"]);
   res.writeHead(200,{
     "Content-Type": "text/event-stream",
     "Cache-control": "no-cache" 
