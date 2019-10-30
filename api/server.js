@@ -8,6 +8,6 @@ const authRouter = require('./auth/auth')
 const privateRouter = require('./private/server')
 
 router.use('/',authRouter)
-router.use('/private',jwt.chkToken(),privateRouter)
+router.use('/private',privateRouter)
 
 module.exports = router

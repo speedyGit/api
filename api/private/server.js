@@ -5,7 +5,7 @@ const slRouter = require('./sls/sls')
 const tlRouter = require('./tls/tls')
 
 router.use('/sls',jwt.chkRole('SL'),slRouter)
-router.use('/tls',jwt.chkRole('TL'),tlRouter)
+router.use('/tls',tlRouter)
 
 module.exports=router;
 
